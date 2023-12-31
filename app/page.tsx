@@ -64,6 +64,8 @@ const testBeer: Beer[] = [
 	},
 ];
 
+export const revalidate = 60;
+
 export default async function Home() {
 	// const [beers, setBeers] = useState<Beer[]>([]);
 	const range = 'Sheet1!A2:G9';
