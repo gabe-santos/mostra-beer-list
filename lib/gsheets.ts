@@ -19,7 +19,7 @@ export async function getGoogleSheetsData(range: string) {
 	const sheets = google.sheets({ version: 'v4', auth });
 
 	const data = await sheets.spreadsheets.values.get({
-		spreadsheetId: '1grWFl0X6Ur5RHxcTB3BmxjkKmY91MCdr2IYQ9c_HHVI',
+		spreadsheetId: process.env.NEXT_PUBLIC_SPREADSHEET_ID,
 		range,
 	});
 
