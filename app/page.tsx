@@ -1,15 +1,6 @@
 import BeerItem from './components/BeerItem';
 import { getGoogleSheetsData } from '../lib/gsheets';
-
-type Beer = {
-	name: string;
-	brewery: string;
-	style: string;
-	abv: string;
-	description: string;
-	sizes: string[];
-	prices: string[];
-};
+import { Beer } from '../lib/types';
 
 const testBeer: Beer[] = [
 	{
@@ -75,7 +66,7 @@ const testBeer: Beer[] = [
 
 export default async function Home() {
 	// const [beers, setBeers] = useState<Beer[]>([]);
-	const range = 'Sheet1!A2:G5';
+	const range = 'Sheet1!A2:G9';
 	const posts = await getGoogleSheetsData(range);
 
 	return (
@@ -115,9 +106,9 @@ export default async function Home() {
 					);
 				})}
 
-				{testBeer.map((beer, i) => {
+				{/* {testBeer.map((beer, i) => {
 					return <BeerItem key={i} {...beer} className={'mt-8'} />;
-				})}
+				})} */}
 			</div>
 		</div>
 	);

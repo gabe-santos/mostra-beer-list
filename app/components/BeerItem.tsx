@@ -1,5 +1,16 @@
 import { twMerge } from 'tailwind-merge';
 
+interface BeerItemProps {
+	name: string;
+	brewery: string;
+	style: string;
+	abv: number;
+	description: string;
+	sizes: number[];
+	prices: number[];
+	className?: string;
+}
+
 export default function BeerItem({
 	name,
 	brewery,
@@ -9,7 +20,7 @@ export default function BeerItem({
 	sizes,
 	prices,
 	className,
-}) {
+}: BeerItemProps) {
 	const classes = twMerge('flex gap-1 flex-col', className);
 
 	return (
