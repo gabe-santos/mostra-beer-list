@@ -64,7 +64,7 @@ const testBeer: Beer[] = [
 	},
 ];
 
-// export const revalidate = 60;
+export const revalidate = 60;
 
 export default async function Home() {
 	// const [beers, setBeers] = useState<Beer[]>([]);
