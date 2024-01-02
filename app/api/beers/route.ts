@@ -1,10 +1,14 @@
 import { google } from 'googleapis';
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const fetchCache = 'force-no-store';
 
 export const GET = async (request: NextRequest) => {
 	const range = 'Sheet1!A2:G9';
+
+	const path = request.nextUrl.pathname;
+	revalidatePath(path);
 
 	const auth = await google.auth.getClient({
 		projectId: 'mostra-beer-list',
