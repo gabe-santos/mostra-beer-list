@@ -72,7 +72,9 @@ export default function Home() {
 
 	useEffect(() => {
 		const getBeers = async () => {
-			const data = await fetch('/api/beers', { cache: 'no-store' });
+			const data = await fetch('/api/beers', {
+				next: { revalidate: 10 },
+			});
 			const json = await data.json();
 
 			const newBeers = json.map((beer: any) => {
