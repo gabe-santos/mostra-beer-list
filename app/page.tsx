@@ -1,9 +1,8 @@
 'use client';
 
 import BeerItem from './components/BeerItem';
-import { getGoogleSheetsData } from '../lib/gsheets';
 import { Beer } from '../lib/types';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const testBeer = [
 	{
@@ -72,9 +71,7 @@ export default function Home() {
 
 	useEffect(() => {
 		const getBeers = async () => {
-			const data = await fetch('/api/beers', {
-				next: { revalidate: 10 },
-			});
+			const data = await fetch('/api/beers');
 			const json = await data.json();
 
 			const newBeers = json.map((beer: any) => {

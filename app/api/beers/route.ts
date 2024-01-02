@@ -1,6 +1,8 @@
 import { google } from 'googleapis';
 import { NextRequest, NextResponse } from 'next/server';
 
+export const fetchCache = 'force-no-store';
+
 export const GET = async (request: NextRequest) => {
 	const range = 'Sheet1!A2:G9';
 
