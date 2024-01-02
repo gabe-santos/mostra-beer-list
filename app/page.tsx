@@ -68,7 +68,7 @@ const testBeer = [
 ];
 
 export default function Home() {
-	const [beers, setBeers] = useState([]);
+	const [beers, setBeers] = useState<Beer[]>([]);
 
 	useEffect(() => {
 		const getBeers = async () => {
@@ -82,7 +82,7 @@ export default function Home() {
 				const sizesArray = sizes.split(', ');
 				const pricesArray = prices.split(', ');
 
-				return {
+				const beerObj: Beer = {
 					name,
 					brewery,
 					style,
@@ -91,6 +91,8 @@ export default function Home() {
 					sizes: sizesArray,
 					prices: pricesArray,
 				};
+
+				return beerObj;
 			});
 			console.log(newBeers);
 			setBeers(newBeers);
