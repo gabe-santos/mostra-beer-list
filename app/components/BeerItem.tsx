@@ -4,10 +4,10 @@ interface BeerItemProps {
 	name: string;
 	brewery: string;
 	style: string;
-	abv: number;
+	abv: string;
 	description: string;
-	sizes: number[];
-	prices: number[];
+	sizes: string[];
+	prices: string[];
 	className?: string;
 }
 
