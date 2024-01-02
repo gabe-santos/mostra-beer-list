@@ -27,5 +27,7 @@ export const GET = async (request: NextRequest) => {
 		range,
 	});
 
-	return NextResponse.json(data.data.values);
+	const response = NextResponse.json(data.data.values);
+	response.headers.set('Cache-Control', 'no-store');
+	return response;
 };
