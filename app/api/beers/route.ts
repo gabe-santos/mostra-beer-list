@@ -21,6 +21,7 @@ export const GET = async (request: NextRequest) => {
 
 	const sheets = google.sheets({ version: 'v4', auth });
 
+	console.log('making request to google sheets...');
 	const data = await sheets.spreadsheets.values.get({
 		spreadsheetId: process.env.NEXT_PUBLIC_SPREADSHEET_ID,
 		range,

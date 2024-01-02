@@ -3,7 +3,7 @@
 import BeerItem from './components/BeerItem';
 import { getGoogleSheetsData } from '../lib/gsheets';
 import { Beer } from '../lib/types';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 const testBeer = [
 	{
@@ -67,14 +67,12 @@ const testBeer = [
 	},
 ];
 
-export const revalidate = 60;
-
 export default function Home() {
-	const [beers, setBeers] = useState(testBeer);
+	const [beers, setBeers] = useState([]);
 
 	useEffect(() => {
 		const getBeers = async () => {
-			const data = await fetch('/api/beers');
+			const data = await fetch('/api/beers', { cache: 'no-store' });
 			const json = await data.json();
 
 			const newBeers = json.map((beer: any) => {
@@ -94,6 +92,7 @@ export default function Home() {
 					prices: pricesArray,
 				};
 			});
+			console.log(newBeers);
 			setBeers(newBeers);
 		};
 		getBeers();
