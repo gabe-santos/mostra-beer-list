@@ -1,6 +1,8 @@
+'use client';
+
 import BeerItem from './components/BeerItem';
 import { Beer } from '../lib/types';
-import { getGoogleSheetsData } from '@/lib/gsheets';
+import { useEffect, useState } from 'react';
 
 const testBeer = [
 	{
@@ -64,28 +66,38 @@ const testBeer = [
 	},
 ];
 
-export default async function Home() {
-	const range = 'Sheet1!A2:G9';
-	const json = await getGoogleSheetsData(range);
+export default function Home() {
+	const [beers, setBeers] = useState<Beer[]>([]);
 
-	const beers = json?.map((beer: any) => {
-		const [name, brewery, style, abv, sizes, prices, description] = beer;
+	useEffect(() => {
+		const getBeers = async () => {
+			const data = await fetch('/api/beers');
+			const json = await data.json();
 
-		const sizesArray = sizes.split(', ');
-		const pricesArray = prices.split(', ');
+			const newBeers = json.map((beer: any) => {
+				const [name, brewery, style, abv, sizes, prices, description] =
+					beer;
 
-		const beerObj: Beer = {
-			name,
-			brewery,
-			style,
-			abv,
-			description,
-			sizes: sizesArray,
-			prices: pricesArray,
+				const sizesArray = sizes.split(', ');
+				const pricesArray = prices.split(', ');
+
+				const beerObj: Beer = {
+					name,
+					brewery,
+					style,
+					abv,
+					description,
+					sizes: sizesArray,
+					prices: pricesArray,
+				};
+
+				return beerObj;
+			});
+			console.log(newBeers);
+			setBeers(newBeers);
 		};
-
-		return beerObj;
-	});
+		getBeers();
+	}, []);
 
 	return (
 		<div className='flex justify-center w-full '>
@@ -93,7 +105,7 @@ export default async function Home() {
 				<h1 className='text-[61px] w-full text-left mb-8 tracking-wider'>
 					BEER
 				</h1>
-				{beers?.map((beer, i) => {
+				{beers.map((beer, i) => {
 					return <BeerItem key={i} {...beer} className={'mt-8'} />;
 				})}
 			</div>
